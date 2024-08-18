@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTT</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+
+
+
+
+</head> 
+<body>
+
+
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+ 
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" id="nav" href="#">TicktackTOE</a>
+
+   </nav>
+<div class="container">
+<div class="row">
+    
+        <div class="card">
+        <div class="card-body">
+<h1>
+THE RULES OF THE GAME
+</h1>
+<h2>
+PLAYER ONE HAS X'S AND GOES FIRST
+</h2>
+<h2>
+PLAYER TWO HAS O'S AND GOES SECOND
+</h2>
+
+<h4>
+(From Wikipedia)  The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner. It is a solved game, with a forced draw assuming best play from both players
+</h4>
+
+ <!--script type="text/javascript"> //THIS IS TO MAKE SURE JQUERY ACTUALLY WORKS
+    $(document).ready(function(){
+
+       if (jQuery) {  
+         alert(" JS AND JQ ACTUALLY WORK FOR WHAT EVER REASON");
+       } else {
+         
+         alert("Doesn't Work");
+       }
+    });
+</script> -->
+       
+
+     
+</div>
+<button type="button" id="starterB" class="btn btn-primary">NEW GAME</button>
+
+</div>
+<div class="row"> 
+    <div class="box col-md-3 border border-danger" id="box1" style="min-height: 160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+    </div>
+    <div class="box col-md-3 border border-danger" id="box2" style="min-height:  160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+    </div>
+    <div class="box col-md-3 border border-danger" id="box3" style="min-height:  160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+    </div>
+
+</div>
+<div class="row"> 
+    <div class="box col-md-3 border border-danger" id="box4" style="min-height:  160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+
+    </div>
+    <div class="box col-md-3 border border-danger" id="box5" style="min-height:  160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+    </div>
+    <div class="box col-md-3 border border-danger" id="box6" style="min-height:  160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+    </div>
+
+</div>
+<div class="row"> 
+    <div class="box col-md-3 border border-danger" id="box7" style="min-height:  160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+
+    </div>
+    <div class="box col-md-3 border border-danger" id="box8" style="min-height: 160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center;  ">
+    </div>
+    <div class="box col-md-3 border border-danger" id="box9" style="min-height: 160px; min-width: 390px; border-radius: 4px; font-size: 100px; text-align: center; ">
+    </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div id="alert--container"> <!-- This is the alert container I borrowed this and tweaked it a bit-->
+    <div class="alert alert-success" role="alert" id="alertWinner">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Player <span id="winner"></span> wins!</p>
+    </div>
+    <div class="alert alert-danger" role="alert" id="alertDraw">
+        <h4 class="alert-heading">It's a draw!</h4>
+    
+     </div>
+
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+        $(document).ready(function(){ //I HAVE NO BLOODY CLUE WHY BUT THIS IS THE ONLY WAY I CAN GET JS TO WORK CONSISTENTLY
+            $('#starterB').click(function(){ //This is the new game button
+                location.reload(); //This reloads the page it is sub otimal but I'm going mad
+                });
+       
+    
+    let box1 = $('#box1'); //This defines the boxes within JQUERY
+let box2 = $('#box2');
+let box3 = $('#box3');
+let box4 = $('#box4');
+let box5 = $('#box5');
+let box6 = $('#box6');
+let box7 = $('#box7');
+let box8 = $('#box8');
+let box9 = $('#box9');
+
+let player1 = 'X'; //I was orginally going to make the X that picture of PEP Guardiola falling over next to the clock unfortunately with all of the debuggind I dont have time for fun
+let  player2 = 'O';  //I was orginally going to make the O that picture of DeJan Kulusevski doing a wojak scream https://i.dailymail.co.uk/1s/2023/12/04/10/78549247-0-image-a-4_1701685178457.jpg
+
+$('#alertWinner').hide(); 
+$('#alertDraw').hide(); 
+
+let round = 0;
+let winner = false;
+let currentPlayer = player1; ////
+
+
+ $('.box').click(function() {/// THIS TO DEBUG  IT ONLY WORKS IF I PUT IN IN HTML
+    console.log("Box clicked");
+});
+
+$('.box').click(function() { ///THIS IS ACTUAL GAME
+    box = $(this);
+    let boxValue = box.text(); // We create a new Variballe and set it to the text of the box
+    if (boxValue === 'X' || boxValue === 'O'){ // It took me half an hour to figure out I needed || instead of a comma
+        console.log('invalid move'); // This IF statement basically say if you click on a box with an X or O in it it will print to console and no increment the round number
+
+    }
+    else {
+        box.text(currentPlayer); //THIS says if you click in a new box set the value of the box to the current player variable 
+        box.attr('data-player', currentPlayer);
+        round++;
+        console.log('Round: ' + round);// 
+        
+     
+        if (currentPlayer === player1) { //I really struggled to come up with a way to switch players until I stumbled upon this and its so simple
+            currentPlayer = player2;// It just says if the current play is 1 make it 2, if its not already one make it one
+        } else {
+            currentPlayer = player1;
+        
+
+        }
+       
+    }
+ 
+    if (box1.text() === 'X' && box2.text() === 'X' && box3.text() === 'X' || //I was orginally going to use an Array of the winning boxes defined by a const but I couldnt get it working
+        box4.text() === 'X' && box5.text() === 'X' && box6.text() === 'X' ||//I know this is a really poor way of doing this but it works
+        box7.text() === 'X' && box8.text() === 'X' && box9.text() === 'X' ||
+        box1.text() === 'X' && box4.text() === 'X' && box7.text() === 'X' ||
+        box2.text() === 'X' && box5.text() === 'X' && box8.text() === 'X' ||
+        box3.text() === 'X' && box6.text() === 'X' && box9.text() === 'X' ||
+        box1.text() === 'X' && box5.text() === 'X' && box9.text() === 'X' ||
+        box3.text() === 'X' && box5.text() === 'X' && box7.text() === 'X') {
+        $('#alertWinner').show();
+        $('#winner').text('1');
+        winner = true;
+        box1.text('X');
+        box2.text('X');
+        box3.text('X');
+        box4.text('X');
+        box5.text('X');
+        box6.text('X');
+        box7.text('X');
+        box8.text('X');
+        box9.text('X');
+
+
+
+    }
+
+    
+    else if (box1.text() === 'O' && box2.text() === 'O' && box3.text() === 'O' || 
+        box4.text() === 'O' && box5.text() === 'O' && box6.text() === 'O' ||
+        box7.text() === 'O' && box8.text() === 'O' && box9.text() === 'O' ||
+        box1.text() === 'O' && box4.text() === 'O' && box7.text() === 'O' ||
+        box2.text() === 'O' && box5.text() === 'O' && box8.text() === 'O' ||
+        box3.text() === 'O' && box6.text() === 'O' && box9.text() === 'O' ||
+        box1.text() === 'O' && box5.text() === 'O' && box9.text() === 'O' ||
+        box3.text() === 'O' && box5.text() === 'O' && box7.text() === 'O') {
+        $('#alertWinner').show();
+        $('#winner').text('2');
+        winner = true;
+         box1.text('O');
+        box2.text('O');
+        box3.text('O');
+        box4.text('O');
+        box5.text('O');
+        box6.text('X');
+        box7.text('O');
+        box8.text('O');
+        box9.text('O');
+
+
+        }
+    
+
+ else if (round === 9 ){ 
+    $('#alertDraw').show();
+}
+
+
+        });
+
+    
+    });
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+
+</html>
+
+
+
+
+
+        
